@@ -1,18 +1,21 @@
 import { useState } from "react";
 
-const Form = () => {
-  const [message, setMessage] = useState([]);
+const Form = ({ addMessageList }) => {
+  const [message, setMessage] = useState([{ autor: "", text: "" }]);
 
-  const addMessage = (e) => {
-    setMessage(e.target.value);
+  const addNameMessage = (e) => {
+    setMessage({ autor: "Vlad", text: e.target.value });
   };
 
-  const clickMessage = () => {};
+  const addMessage = () => {
+    addMessageList(message);
+    setMessage({ autor: "", text: "" });
+  };
 
   return (
     <>
-      <input type="text" value={message} onChange={addMessage} />
-      <button onClick={clickMessage}>Отправить</button>
+      <input type="text" value={message.text} onChange={addNameMessage} />
+      <button onClick={addMessage}>Отправить</button>
     </>
   );
 };
