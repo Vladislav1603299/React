@@ -1,0 +1,21 @@
+.input {
+  width: 74.5%;
+  height: 30px;
+}
+
+.button {
+  background-image: url(../../logo/samolet.svg);
+  background-size: 30px;
+  background-repeat: no-repeat;
+  width: 83px;
+  background-position: center;
+  height: 50px;
+}
+
+.buttonInput {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+}

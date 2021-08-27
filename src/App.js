@@ -1,52 +1,46 @@
+import React, { useEffect, useState } from "react";
+import AlignItemsList from "./components/Chats/Chat";
+import Form from "./components/Form/Form";
 import "./App.css";
-import { useState } from "react";
 
 function App() {
-  const [message, setMessage] = useState([]);
-
-  const newMessage = (e) => {
-    setMessage({ name: "Vlad", userMessage: e.target.value });
+  const [messageList, setMessageList] = useState([]);
+  const addState = (newMessage) => {
+    setMessageList([...messageList, newMessage]);
   };
 
-  const onClick = () => {
-    if (message.userMessage !== undefined) {
-      let idBlock = document.getElementById("block");
-      let newBlock = document.createElement("div");
-      newBlock.className = "nameMessage1";
-      newBlock.innerHTML = `<h4 class ="name1">${message.name}</h4><p class ="message1">${message.userMessage}</p>`;
-      idBlock.prepend(newBlock);
-
-      setTimeout(() => {
-        let idBlock = document.getElementById("block");
-        let newBlock = document.createElement("div");
-        newBlock.className = "nameMessage2";
-        newBlock.innerHTML = `<h4 class ="name2">Оleg</h4><p class ="message2">Какой-то текст</p>`;
-        idBlock.prepend(newBlock);
+  useEffect(() => {
+    if (messageList.length !== 0) {
+      const timer = setTimeout(() => {
+        alert("Какой-то текст");
+        console.log(messageList);
       }, 1500);
+      return () => clearTimeout(timer);
     }
-    console.log(message);
-    document.getElementsByTagName("input")[0].value = "";
-    document.getElementById("input1").focus();
-  };
+  }, [messageList]);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <header className="header">Chat</header>
-        <div id="block"></div>
-        <div className="inputButton">
-          <input
-            id="input1"
-            placeholder="Введите сообщение"
-            autoFocus
-            className="input"
-            type="text"
-            value={message.userMessage}
-            onChange={newMessage}
-          />
-          <button className="button" onClick={onClick}></button>
+    <div>
+      <div className="list">
+        <div>
+          <AlignItemsList />
         </div>
-      </header>
+        <div>
+          <div>
+            {messageList.map((mes, i) => {
+              return (
+                <div key={i} className="myChatMessage">
+                  <h4 className="name1">{mes.name}</h4>
+                  <p className="message1">{mes.userText}</p>
+                </div>
+              );
+            })}
+          </div>
+          <div>
+            <Form addState={addState} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
