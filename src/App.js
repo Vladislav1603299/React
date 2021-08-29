@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import AlignItemsList from "./components/Chats/Chat";
+
 import Form from "./components/Form/Form";
 import "./App.css";
+import Chats from "./components/Chats/Chats";
 
 function App() {
   const [messageList, setMessageList] = useState([]);
@@ -23,13 +24,13 @@ function App() {
     <div>
       <div className="list">
         <div>
-          <AlignItemsList />
+          <Chats />
         </div>
         <div>
           <div>
-            {messageList.map((mes, i) => {
+            {messageList.map((mes) => {
               return (
-                <div key={i} className="myChatMessage">
+                <div key={mes.userText} className="myChatMessage">
                   <h4 className="name1">{mes.name}</h4>
                   <p className="message1">{mes.userText}</p>
                 </div>
