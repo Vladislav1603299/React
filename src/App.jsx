@@ -1,11 +1,21 @@
 import React from 'react'
-import Header from './components/Header/Header'
+import './App.css'
+import { BrowserRouter } from 'react-router-dom'
+import Links from './components/Links/Links'
+import Router from './routing/Router'
+import { Provider } from 'react-redux'
+import { store } from '../src/store/index'
 
 const App = () => {
   return (
-    <>
-      <Header />
-    </>
+    <Provider store={store}>
+      <BrowserRouter>
+        <div>
+          <Links />
+          <Router />
+        </div>
+      </BrowserRouter>
+    </Provider>
   )
 }
 

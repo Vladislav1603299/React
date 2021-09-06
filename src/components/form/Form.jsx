@@ -35,23 +35,25 @@ const Form = (props) => {
     console.log(message)
   }
   return (
-    <div className="buttonInput">
-      <TextField
-        id="standard-basic"
-        label="Введите сообщение"
-        className="input"
-        onChange={addText}
-        value={message.text}
-        inputRef={inputRef}
-      />
-      <Button
-        variant="contained"
-        color="primary"
-        className={classes.button}
-        onClick={sendMessage}
-      >
-        Send
-      </Button>
+    <div>
+      <div className="buttonInput">
+        <TextField
+          id="standard-basic"
+          label="Введите сообщение"
+          className="input"
+          onChange={addText}
+          value={message.text}
+          inputRef={inputRef}
+        />
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          onClick={sendMessage}
+        >
+          Send
+        </Button>
+      </div>
     </div>
   )
 }
