@@ -1,20 +1,15 @@
-import React from 'react'
+import { useCallback } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { toggleShowName } from '../../Store/Profile/actions'
+import { showNameSelector, nameSelector } from '../../Store/Profile/selectors'
+import ListItemAvatar from '@material-ui/core/ListItemAvatar'
+import Avatar from '@material-ui/core/Avatar'
+import { makeStyles } from '@material-ui/core/styles'
 import FormGroup from '@material-ui/core/FormGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
-import Avatar from '@material-ui/core/Avatar'
-import ListItemAvatar from '@material-ui/core/ListItemAvatar'
-import { makeStyles } from '@material-ui/core/styles'
-import { useCallback } from 'react'
-import { useDispatch } from 'react-redux'
-import { useSelector } from 'react-redux'
-import {
-  accordionSelector,
-  showAccordionSelector,
-} from '../../store/Profile/selectors'
-
-import { toggleAccordionAction } from '../../store/Profile/actions'
 import './Profile.css'
+import Accordion from '../../Components/Accordion/Accordion'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,30 +25,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Profile = () => {
+export const Profile = () => {
   const classes = useStyles()
-  const accordion = useSelector(accordionSelector)
-  const showAccordion = useSelector(showAccordionSelector)
+  const showName = useSelector(showNameSelector)
+  const name = useSelector(nameSelector)
+
   const dispatch = useDispatch()
-  console.log({ accordion, showAccordion })
 
-  const handleToggleAccordion = useCallback(() => {
-    dispatch(toggleAccordionAction(accordion))
-  }, [accordion, dispatch])
-
-  const [state, setState] = React.useState({
-    checkedA: true,
-    checkedB: true,
-    checkedF: true,
-    checkedG: true,
-  })
-
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked })
-  }
+  const setShowName = useCallback(() => {
+    dispatch(toggleShowName())
+  }, [dispatch])
 
   return (
     <div className="profile">
+      <div>Profile</div>
       <div className="avatar">
         <ListItemAvatar>
           <Avatar
@@ -68,18 +53,21 @@ const Profile = () => {
           <FormControlLabel
             control={
               <Checkbox
-                onClick={handleToggleAccordion}
-                checked={state.checkedA}
-                onChange={handleChange}
+                type="checkbox"
+                onChange={setShowName}
+                checked={showName}
                 name="checkedA"
+                value={showName}
               />
             }
             label="Texts"
           />
         </FormGroup>
       </div>
-      {showAccordion && <div>{accordion}</div>}
+      <div>
+        <Accordion />
+      </div>
+      {showName && <div>{name}</div>}
     </div>
   )
 }
-export default Profile

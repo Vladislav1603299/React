@@ -1,34 +1,33 @@
-import React, { useState } from 'react'
-import { INITIAL_CHATS } from '../../routing/Constants/Constants'
+import { useParams, Redirect } from 'react-router'
+import { useSelector } from 'react-redux'
+import { ROUTES } from '../../Routing/constants'
+import { AddChat } from '../../Components/AddChat/AddChat'
+import { ChatList } from '../../Components/ChatList/ChatList'
+import { MessageList } from '../../Components/MessageList/MessageList'
+import { Form } from '../../Components/Form/Form'
+import { chatsSelector } from '../../Store/Chats/selectors'
 import './Chats.css'
-import { BrowserRouter } from 'react-router-dom'
-import ChatList from '../../components/ChatsFile/ChatList'
-import ChatsRouter from '../../routing/ChatsRouter'
 
-const Chats = () => {
-  const [chat, setChat] = useState(INITIAL_CHATS)
+export const Chats = () => {
+  const { chatId } = useParams()
+  const chats = useSelector(chatsSelector)
 
-  const changeMessageList = () => {
-    setChat(INITIAL_CHATS.push({ name: '', text: '', way: '', id: '' }))
-  }
-  const deleteMessageList = () => {
-    setChat(INITIAL_CHATS.pop({ name: '', text: '', way: '', id: '' }))
+  const chat = chats.find((chat) => chat.id === chatId)
+
+  if (!chatId || !chat) {
+    return <Redirect to={ROUTES.NO_CHAT} />
   }
 
   return (
-    <BrowserRouter>
-      <div>
-        <div className="list">
-          <div>
-            <ChatList chat={chat} />
-          </div>
-          <div>
-            <ChatsRouter />
-          </div>
-        </div>
+    <div className="chats">
+      <div className="chats-left">
+        <AddChat />
+        <ChatList />
       </div>
-    </BrowserRouter>
+      <div className="chats-right">
+        <MessageList />
+        <Form chatId={chatId} />
+      </div>
+    </div>
   )
 }
-
-export default Chats

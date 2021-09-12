@@ -1,3 +1,3 @@
-export const accordionSelector = (state) => state.accordion;
+export const showNameSelector = (state) => state.profile.showName;
 
-export const showAccordionSelector = (state) => state.showAccordion;
+export const nameSelector = (state) => state.profile.name;

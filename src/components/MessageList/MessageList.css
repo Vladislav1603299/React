@@ -1,0 +1,36 @@
+.msg-list {
+  position: relative;
+  height: 100%;
+  overflow: auto;
+}
+
+.msg {
+  width: fit-content;
+  max-width: 60%;
+  border: none;
+  border-radius: 10px;
+  background-color: #4f21f3;
+  color: black;
+  padding: 20px;
+  font-size: 20px;
+  margin-bottom: 10px;
+  word-break: break-word;
+}
+
+.msg-author {
+  display: block;
+  text-align: end;
+  font-size: 16px;
+  color: #fcc8b3;
+}
+
+.info-msg {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-radius: 10px;
+  background-color: #03a9f4;
+  color: #ffffff;
+  padding: 20px;
+  font-size: 20px;
+}

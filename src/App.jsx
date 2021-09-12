@@ -1,21 +1,25 @@
-import React from 'react'
-import './App.css'
-import { BrowserRouter } from 'react-router-dom'
-import Links from './components/Links/Links'
-import Router from './routing/Router'
 import { Provider } from 'react-redux'
-import { store } from '../src/store/index'
+import { BrowserRouter } from 'react-router-dom'
+import { ThemeProvider } from '@material-ui/core/styles'
 
-const App = () => {
+import { Router } from './Routing/Router'
+import { theme } from './Theme/theme'
+import { store } from './Store/index'
+import './App.css'
+import { Links } from './Components/Links/Links'
+
+function App() {
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <div>
-          <Links />
-          <Router />
-        </div>
-      </BrowserRouter>
-    </Provider>
+    <div className="App">
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            <Links />
+            <Router />
+          </BrowserRouter>
+        </ThemeProvider>
+      </Provider>
+    </div>
   )
 }
 

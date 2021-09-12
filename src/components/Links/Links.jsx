@@ -2,25 +2,25 @@ import { Link } from 'react-router-dom'
 import HouseIcon from '@material-ui/icons/House'
 import ChatIcon from '@material-ui/icons/Chat'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-import { ROUTER } from '../../routing/Constants/Constants'
+import { ROUTES } from '../../Routing/constants'
 import './Links.css'
 
-const Links = () => {
+export const Links = () => {
   return (
     <div className="header">
       <ul className="header-link">
         <li>
-          <Link to={ROUTER.HOME}>
+          <Link to={ROUTES.MAIN}>
             <HouseIcon style={{ color: 'black' }} />
           </Link>
         </li>
         <li>
-          <Link to={ROUTER.CHATS}>
+          <Link to={ROUTES.CHATS}>
             <ChatIcon style={{ color: 'black' }} />
           </Link>
         </li>
         <li>
-          <Link to={ROUTER.PROFILR}>
+          <Link to={ROUTES.PROFILE}>
             <AccountCircleIcon style={{ color: 'black' }} />
           </Link>
         </li>
@@ -28,5 +28,3 @@ const Links = () => {
     </div>
   )
 }
-
-export default Links

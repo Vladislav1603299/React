@@ -1,18 +1,16 @@
-import { TOGGLE_SHOW_ACCORDION_ACTION } from "./constants";
-import AccordionList from "../../components/Accordion/Accordion";
+import { TOGGLE_SHOW_NAME } from "./constants";
 
 const initialState = {
-  accordion: <AccordionList />,
-  showAccordion: true,
+  showName: false,
+  name: "Text",
 };
 
 export const profileReducer = (state = initialState, action) => {
-  console.log(state, action);
   switch (action.type) {
-    case TOGGLE_SHOW_ACCORDION_ACTION:
+    case TOGGLE_SHOW_NAME:
       return {
         ...state,
-        showAccordion: !state.showAccordion,
+        showName: !state.showName,
       };
     default:
       return state;

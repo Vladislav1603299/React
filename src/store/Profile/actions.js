@@ -1,6 +1,6 @@
-import { TOGGLE_SHOW_ACCORDION_ACTION } from "./constants";
+import { TOGGLE_SHOW_NAME } from "./constants";
 
-export const toggleAccordionAction = (payload) => ({
-  type: TOGGLE_SHOW_ACCORDION_ACTION,
+export const toggleShowName = (payload) => ({
+  type: TOGGLE_SHOW_NAME,
   payload,
 });
