@@ -1,0 +1,19 @@
+.no-chats {
+  position: relative;
+  border: 1px solid;
+  border-radius: 10px;
+  height: 100%;
+}
+
+.no-chats-text {
+  border: 1px solid black;
+  height: 70px;
+  background-color: white;
+  position: absolute;
+  display: flex;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  color: black;
+  font-size: 50px;
+}

@@ -1,0 +1,21 @@
+.chats {
+  display: flex;
+  height: inherit;
+  overflow: auto;
+  margin-top: 50px;
+  background-image: url(../../Logo/backgraund.jpg);
+}
+
+.chats-left {
+  border: 1px solid;
+  max-width: 300px;
+  width: 100%;
+  overflow: auto;
+  background-color: white;
+}
+.chats-right {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
