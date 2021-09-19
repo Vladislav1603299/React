@@ -1,11 +1,25 @@
-import React from 'react'
-import Header from './components/Header/Header'
+import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
+import { ThemeProvider } from '@material-ui/core/styles'
 
-const App = () => {
+import { Router } from './Routing/Router'
+import { theme } from './Theme/theme'
+import { store } from './Store/index'
+import './App.css'
+import { Links } from './Components/Links/Links'
+
+function App() {
   return (
-    <>
-      <Header />
-    </>
+    <div className="App">
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            <Links />
+            <Router />
+          </BrowserRouter>
+        </ThemeProvider>
+      </Provider>
+    </div>
   )
 }
 

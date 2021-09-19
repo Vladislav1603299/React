@@ -1,59 +1,60 @@
-import { useEffect, useRef, useState } from 'react'
-import { TextField } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button'
-import '../Form/Form.css'
-import generateUUID from '../GenerateID/Generate'
+import { useEffect, useState, useRef } from 'react'
+import { useDispatch } from 'react-redux'
+import { TextField, Button } from '@material-ui/core'
+import MailIcon from '@material-ui/icons/Mail'
+import { addMessage, showMessages } from '../../Store/Messages/actions'
+import './Form.css'
 
-const useStyles = makeStyles((theme) => ({
-  button: {
-    margin: theme.spacing(1),
-  },
-}))
+export const Form = ({ chatId }) => {
+  const [text, setText] = useState('')
+  const [author, setAuthor] = useState('')
+  const ref = useRef(null)
 
-const Form = (props) => {
-  const classes = useStyles()
-  const [message, setMessage] = useState({
-    name: 'Vlad',
-    text: '',
-    id: generateUUID(10),
-  })
+  const dispatch = useDispatch()
 
-  const inputRef = useRef(null)
+  const onAddMessage = (event) => {
+    event.preventDefault()
+    dispatch(addMessage(text, author, chatId))
+    dispatch(showMessages(chatId))
+    setText('')
+    setAuthor('')
+  }
 
   useEffect(() => {
-    inputRef.current.focus()
-  }, [message])
+    ref.current?.focus()
+  }, [])
 
-  const addText = (e) => {
-    setMessage({ ...message, text: e.target.value })
-  }
-
-  const sendMessage = () => {
-    props.addState(message)
-    setMessage({ name: 'Vlad', text: '', id: generateUUID(10) })
-    console.log(message)
-  }
   return (
-    <div className="buttonInput">
+    <form className="form" onSubmit={onAddMessage}>
       <TextField
-        id="standard-basic"
-        label="Введите сообщение"
-        className="input"
-        onChange={addText}
-        value={message.text}
-        inputRef={inputRef}
+        id="outlined-basic"
+        className="form-text"
+        required={true}
+        label="Message"
+        variant="outlined"
+        size="small"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        inputRef={ref}
+      />
+      <TextField
+        id="outlined-basic"
+        className="form-author"
+        required={true}
+        label="Author"
+        variant="outlined"
+        size="small"
+        value={author}
+        onChange={(e) => setAuthor(e.target.value)}
       />
       <Button
+        className="form-send-btn"
         variant="contained"
+        type="submit"
         color="primary"
-        className={classes.button}
-        onClick={sendMessage}
       >
-        Send
+        <MailIcon />
       </Button>
-    </div>
+    </form>
   )
 }
-
-export default Form
