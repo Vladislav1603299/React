@@ -1,5 +1,6 @@
-import { useCallback } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import firebase from 'firebase/app'
+import { useCallback, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { toggleShowName } from '../../Store/Profile/actions'
 import { showNameSelector, nameSelector } from '../../Store/Profile/selectors'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
@@ -10,6 +11,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 import './Profile.css'
 import Accordion from '../../Components/Accordion/Accordion'
+import { useDispatch } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,12 +31,34 @@ export const Profile = () => {
   const classes = useStyles()
   const showName = useSelector(showNameSelector)
   const name = useSelector(nameSelector)
+  const [nameUser, setNameUser] = useState()
 
+  const uid = firebase.auth().currentUser.uid
   const dispatch = useDispatch()
 
   const setShowName = useCallback(() => {
     dispatch(toggleShowName())
   }, [dispatch])
+
+  useEffect(() => {
+    firebase
+      .database()
+      .ref('profile')
+      .child(uid)
+      .child('name')
+      .on('value', (snapshot) => {
+        setNameUser(snapshot.val())
+      })
+  }, [])
+
+  const handleUserNameChange = (e) => {
+    firebase
+      .database()
+      .ref('profile')
+      .child(uid)
+      .child('name')
+      .set(e.target.value)
+  }
 
   return (
     <div className="profile">
@@ -54,8 +78,8 @@ export const Profile = () => {
             control={
               <Checkbox
                 type="checkbox"
-                onChange={setShowName}
                 checked={showName}
+                onChange={setShowName}
                 name="checkedA"
                 value={showName}
               />
@@ -68,6 +92,8 @@ export const Profile = () => {
         <Accordion />
       </div>
       {showName && <div>{name}</div>}
+      <input type="text" name={nameUser} onChange={handleUserNameChange} />
+      <button>Toggle</button>
     </div>
   )
 }

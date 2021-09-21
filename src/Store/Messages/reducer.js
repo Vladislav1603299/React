@@ -9,8 +9,10 @@ export const messagesReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_MESSAGE:
       const currentMsgs = state.messages[action.chatId] || [];
+
       return {
         ...state,
+
         messages: {
           ...state.messages,
           [action.chatId]: [

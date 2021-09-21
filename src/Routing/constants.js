@@ -4,5 +4,7 @@ export const ROUTES = {
   PHOTOS: "/photos",
   CHATS: "/chats/:chatId?",
   NO_CHAT: "/nochat",
-  NOT_FOUND: "not-found",
+  NOT_FOUND: "/not-found",
+  SIGNIN: "/login",
+  SIGNUP: "/signup",
 };
